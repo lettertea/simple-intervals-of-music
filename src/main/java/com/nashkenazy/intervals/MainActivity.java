@@ -39,38 +39,24 @@ public class MainActivity extends AppCompatActivity {
         Button newRoundBtn = findViewById(R.id.button_new_round);
         Button submitBtn = findViewById(R.id.button_submit);
 
-        newRoundBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        newRoundBtn.setOnClickListener(v -> {
 
-                int intervalDistance = RAND.nextInt(INTERVALS.size());
-                int lowerNote = RAND.nextInt(NOTES_FILE_NAMES.size() - intervalDistance);
-                int upperNote = lowerNote + intervalDistance;
-                playInterval(lowerNote, upperNote);
+            int intervalDistance = RAND.nextInt(INTERVALS.size());
+            int lowerNote = RAND.nextInt(NOTES_FILE_NAMES.size() - intervalDistance);
+            int upperNote = lowerNote + intervalDistance;
+            playInterval(lowerNote, upperNote);
 
-                soundBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        playInterval(lowerNote, upperNote);
-                    }
-                });
+            soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 
-                submitBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (intervalDistance == dropdown.getSelectedItemPosition()) {
-                            playNote(80);
-                        } else {
-                            playNote(1);
-                        }
-
-                    }
-                });
-
-            }
+            submitBtn.setOnClickListener(v12 -> {
+                if (intervalDistance == dropdown.getSelectedItemPosition()) {
+                    playNote(80);
+                } else {
+                    playNote(1);
+                }
+            });
         });
-
-
+        
         dropdown.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, INTERVALS));
     }
 
