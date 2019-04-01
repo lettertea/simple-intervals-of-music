@@ -4,6 +4,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,12 +31,20 @@ public class MainActivity extends AppCompatActivity {
     final int INTERVAL_DELAY = 700;
     final Random RAND = new Random();
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
 
-        Spinner dropdown = findViewById(R.id.spinner_choices);
+        recyclerView = findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(INTERVALS));
+
         Button soundBtn = findViewById(R.id.button_repeat);
         Button newRoundBtn = findViewById(R.id.button_new_round);
         Button submitBtn = findViewById(R.id.button_submit);
@@ -49,25 +59,19 @@ public class MainActivity extends AppCompatActivity {
             soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 
             submitBtn.setOnClickListener(v12 -> {
-                if (intervalDistance == dropdown.getSelectedItemPosition()) {
-                    playNote(80);
-                } else {
+
                     playNote(1);
-                }
+
             });
         });
-        
-        dropdown.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, INTERVALS));
     }
 
     public void playNote(int noteNumber) {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, getResources().getIdentifier(NOTES_FILE_NAMES.get(noteNumber - 1),
                 "raw", getPackageName()));
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.reset();
-                mp.release();
-            }
+        mediaPlayer.setOnCompletionListener(mp -> {
+            mp.reset();
+            mp.release();
         });
         mediaPlayer.start();
     }
