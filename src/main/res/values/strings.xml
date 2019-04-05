@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Dominate Yo Pitches</string>
     <string name="play">Play sound</string>
     <string name="submit">submit</string>
-    <string name="repeat_audio">repeat audio</string>
-    <string name="new_round">new round</string>
+    <string name="repeat_interval">repeat interval</string>
+    <string name="next_interval">next interval</string>
 </resources>

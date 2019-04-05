@@ -46,10 +46,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(new MyAdapter(INTERVALS));
 
         Button soundBtn = findViewById(R.id.button_repeat);
-        Button newRoundBtn = findViewById(R.id.button_new_round);
-        Button submitBtn = findViewById(R.id.button_submit);
+        Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
-        newRoundBtn.setOnClickListener(v -> {
+        nextIntervalBtn.setOnClickListener(v -> {
 
             int intervalDistance = RAND.nextInt(INTERVALS.size());
             int lowerNote = RAND.nextInt(NOTES_FILE_NAMES.size() - intervalDistance);
@@ -58,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
             soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 
-            submitBtn.setOnClickListener(v12 -> {
-
-                    playNote(1);
-
-            });
         });
     }
 
