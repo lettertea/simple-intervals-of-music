@@ -75,20 +75,9 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
     }
 
     public void playNoteAfterDelay(final int noteNumber, int delay) {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                playNote(noteNumber);
-            }
-        }, delay);
+        handler.postDelayed(() -> playNote(noteNumber), delay);
     }
 
-    public void playRound() {
-        int intervalDistance = RAND.nextInt(INTERVALS.size());
-        int lowerNote = RAND.nextInt(NOTES_FILE_NAMES.size() - intervalDistance);
-        int upperNote = lowerNote + intervalDistance;
-        playInterval(lowerNote, upperNote);
-    }
 
     public void playInterval(int lowerNote, int upperNote) {
         playNote(lowerNote);
