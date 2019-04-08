@@ -25,7 +25,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/footer"
         android:gravity="center_vertical|center_horizontal"
-        android:padding="20dp"
+        android:padding="8dp"
         android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -47,6 +47,5 @@
 
     </RelativeLayout>
 
-    />
 
 </android.support.constraint.ConstraintLayout>
