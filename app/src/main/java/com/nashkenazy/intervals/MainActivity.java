@@ -1,12 +1,15 @@
 package com.nashkenazy.intervals;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.preference.PreferenceManager;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -27,11 +30,14 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	int intervalDistance;
 	int lowerNote;
 	int upperNote;
+	SharedPreferences sharedPref;
 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 		RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
 		recyclerView.setHasFixedSize(true);
@@ -40,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 		setupRound();
 		android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
 	}
 
 
@@ -73,12 +78,13 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
 	public void setupRound() {
+
 		Button soundBtn = findViewById(R.id.button_repeat);
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
+			lowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "3"));
 			intervalDistance = RAND.nextInt(INTERVALS.size());
-			lowerNote = RAND.nextInt(NOTES_FILE_NAMES.size() - intervalDistance);
 			upperNote = lowerNote + intervalDistance;
 			playInterval(lowerNote, upperNote);
 		});
