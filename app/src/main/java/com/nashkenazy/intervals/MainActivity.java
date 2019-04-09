@@ -85,7 +85,9 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
-			lowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "4"));
+			int tonicNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "4"));
+			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
+			lowerNote = 12 * (octave - 1) + tonicNote;
 
 			intervalDistance = RAND.nextInt(INTERVALS.size());
 			upperNote = lowerNote + intervalDistance;

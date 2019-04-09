@@ -6,4 +6,10 @@
         android:entries="@array/pref_tonic_notes"
         android:entryValues="@array/pref_tonic_note_values"/>
 
+    <android.support.v7.preference.ListPreference
+        android:key="octave"
+        android:title="Octave"
+        android:entries="@array/octaves"
+        android:entryValues="@array/octaves"
+/>
 </PreferenceScreen>

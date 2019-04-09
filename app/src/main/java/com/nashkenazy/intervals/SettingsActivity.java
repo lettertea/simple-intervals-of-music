@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 public class SettingsActivity extends AppCompatActivity {
 	public static final String KEY_PREF_TONIC_NOTE = "tonic_note";
+	public static final String KEY_PREF_OCTAVE = "octave";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
