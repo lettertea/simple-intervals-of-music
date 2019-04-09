@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.google.common.collect.ImmutableList;
 
@@ -37,15 +38,16 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 		RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.setAdapter(new MyAdapter(INTERVALS, this));
 
-		setupRound();
 		android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+		setupRound();
 	}
 
 
@@ -83,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
-			lowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "3"));
+			lowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "4"));
+
 			intervalDistance = RAND.nextInt(INTERVALS.size());
 			upperNote = lowerNote + intervalDistance;
 			playInterval(lowerNote, upperNote);

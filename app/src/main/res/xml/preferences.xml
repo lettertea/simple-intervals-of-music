@@ -5,4 +5,5 @@
         android:title="Tonic note"
         android:entries="@array/pref_tonic_notes"
         android:entryValues="@array/pref_tonic_note_values"/>
+
 </PreferenceScreen>
