@@ -1,1 +1,1 @@
-# dominate-yo-pitches
+# simple-intervals-of-music
