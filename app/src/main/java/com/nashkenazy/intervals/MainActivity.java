@@ -106,17 +106,14 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	}
 
 	public void stopAllAudio() {
-		if (mediaPlayer != null) {
-			mediaPlayer.release();
-		}
+		if (mediaPlayer != null) { mediaPlayer.release(); }
 		handler.removeCallbacksAndMessages(null);
+
 	}
 
 	public void playNote(int noteNumber) {
 		mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier(NOTES_FILE_NAMES.get(noteNumber - 1), "raw", getPackageName()));
-		mediaPlayer.setOnCompletionListener(mp -> {
-			mp.release();
-		});
+		mediaPlayer.setOnCompletionListener(MediaPlayer::release);
 		mediaPlayer.start();
 	}
 
