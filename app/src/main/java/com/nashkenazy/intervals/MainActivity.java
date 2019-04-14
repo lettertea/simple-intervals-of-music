@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.preference.PreferenceManager;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 		RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
 		recyclerView.setHasFixedSize(true);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+		recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 		recyclerView.setAdapter(new MyAdapter(INTERVALS, this));
 
 		android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
