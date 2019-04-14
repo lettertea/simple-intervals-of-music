@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	int lowerNote;
 	int upperNote;
 	SharedPreferences sharedPref;
-
+	private MediaPlayer mediaPlayer;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	// Adapter listener implementation must be done here instead of setupRound
 	@Override
 	public void onClick(int semitone) {
+		stopAllAudio();
 		if (semitone == intervalDistance) {
 			playNote(88);
 		} else {
@@ -97,8 +98,17 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 	}
 
+	public void stopAllAudio() {
+		if (mediaPlayer != null) {
+			mediaPlayer.stop();
+			mediaPlayer.release();
+			mediaPlayer = null;
+		}
+		handler.removeCallbacksAndMessages(null);
+	}
+
 	public void playNote(int noteNumber) {
-		MediaPlayer mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier(NOTES_FILE_NAMES.get(noteNumber - 1), "raw", getPackageName()));
+		mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier(NOTES_FILE_NAMES.get(noteNumber - 1), "raw", getPackageName()));
 		mediaPlayer.setOnCompletionListener(mp -> {
 			mp.reset();
 			mp.release();
@@ -112,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 
 	public void playInterval(int lowerNote, int upperNote) {
+		stopAllAudio();
 		playNote(lowerNote);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY);
 
