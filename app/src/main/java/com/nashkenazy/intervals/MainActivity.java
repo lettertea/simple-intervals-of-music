@@ -2,6 +2,7 @@ package com.nashkenazy.intervals;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	public void onClick(int semitone) {
 		stopAllAudio();
 		if (semitone == intervalDistance) {
+			Button nextIntervalBtn = findViewById(R.id.button_next_interval);
+			nextIntervalBtn.setBackgroundColor(Color.parseColor("#ffae42"));
 			playNote(88);
 		} else {
 			playNote(1);
@@ -87,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
+			nextIntervalBtn.setBackgroundColor(Color.GRAY);
+
+
 			int tonicNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "4"));
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
 			lowerNote = 12 * (octave - 1) + tonicNote;
