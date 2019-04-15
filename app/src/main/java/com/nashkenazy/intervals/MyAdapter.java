@@ -22,7 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 			super(v);
 			layout = v;
 			txtSemitone = v.findViewById(R.id.text_semitone);
-			txtHeader = v.findViewById(R.id.text_interval);
+			txtHeader = v.findViewById(R.id.button_interval);
 		}
 
 
