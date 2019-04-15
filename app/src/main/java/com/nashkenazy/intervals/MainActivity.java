@@ -81,14 +81,13 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	}
 
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
-	private  void setupRound() {
+	private void setupRound() {
 
 		Button soundBtn = findViewById(R.id.button_repeat);
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
 			nextIntervalBtn.setBackgroundColor(Color.GRAY);
-
 
 			int tonicNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "4"));
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
@@ -101,24 +100,23 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 	}
 
-	private  void stopAllAudio() {
+	private void stopAllAudio() {
 		if (mediaPlayer != null) { mediaPlayer.release(); }
 		handler.removeCallbacksAndMessages(null);
-
 	}
 
-	private  void playNote(int noteNumber) {
+	private void playNote(int noteNumber) {
 		mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier(NOTES_FILE_NAMES.get(noteNumber - 1), "raw", getPackageName()));
 		mediaPlayer.setOnCompletionListener(MediaPlayer::release);
 		mediaPlayer.start();
 	}
 
-	private  void playNoteAfterDelay(final int noteNumber, int delay) {
+	private void playNoteAfterDelay(final int noteNumber, int delay) {
 		handler.postDelayed(() -> playNote(noteNumber), delay);
 	}
 
 
-	private  void playInterval(int lowerNote, int upperNote) {
+	private void playInterval(int lowerNote, int upperNote) {
 		stopAllAudio();
 		playNote(lowerNote);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY);
@@ -129,5 +127,5 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		playNoteAfterDelay(lowerNote, INTERVAL_DELAY * 6);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY * 6);
 	}
-
+	
 }
