@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 
 	@Override
-	private boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		return true;
 	}
 
 	@Override
-	private boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			Intent intent = new Intent(this, SettingsActivity.class);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 	// Adapter listener implementation must be done here instead of setupRound
 	@Override
-	private void onClick(int semitone) {
+	public void onClick(int semitone) {
 		stopAllAudio();
 		if (semitone == intervalDistance) {
 			Button nextIntervalBtn = findViewById(R.id.button_next_interval);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	}
 
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
-	private void setupRound() {
+	private  void setupRound() {
 
 		Button soundBtn = findViewById(R.id.button_repeat);
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
@@ -101,24 +101,24 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 	}
 
-	private void stopAllAudio() {
+	private  void stopAllAudio() {
 		if (mediaPlayer != null) { mediaPlayer.release(); }
 		handler.removeCallbacksAndMessages(null);
 
 	}
 
-	private void playNote(int noteNumber) {
+	private  void playNote(int noteNumber) {
 		mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier(NOTES_FILE_NAMES.get(noteNumber - 1), "raw", getPackageName()));
 		mediaPlayer.setOnCompletionListener(MediaPlayer::release);
 		mediaPlayer.start();
 	}
 
-	private void playNoteAfterDelay(final int noteNumber, int delay) {
+	private  void playNoteAfterDelay(final int noteNumber, int delay) {
 		handler.postDelayed(() -> playNote(noteNumber), delay);
 	}
 
 
-	private void playInterval(int lowerNote, int upperNote) {
+	private  void playInterval(int lowerNote, int upperNote) {
 		stopAllAudio();
 		playNote(lowerNote);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY);
