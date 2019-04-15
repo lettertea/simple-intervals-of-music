@@ -4,20 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.preference.PreferenceManager;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.os.Handler;
-import android.widget.Toast;
 
 import com.google.common.collect.ImmutableList;
 
@@ -47,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 		recyclerView.setAdapter(new MyAdapter(INTERVALS, this));
 
-		android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 		setupRound();
