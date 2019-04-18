@@ -89,9 +89,9 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		nextIntervalBtn.setOnClickListener(v -> {
 			nextIntervalBtn.setBackgroundColor(Color.GRAY);
 
-			int tonicNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_TONIC_NOTE, "4"));
+			int settingsLowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
-			lowerNote = 12 * (octave - 1) + tonicNote;
+			lowerNote = 12 * (octave - 1) + settingsLowerNote;
 
 			intervalDistance = RAND.nextInt(INTERVALS.size());
 			upperNote = lowerNote + intervalDistance;

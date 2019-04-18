@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class SettingsActivity extends AppCompatActivity {
-	public static final String KEY_PREF_TONIC_NOTE = "tonic_note";
+	public static final String KEY_PREF_LOWER_NOTE = "lower_note";
 	public static final String KEY_PREF_OCTAVE = "octave";
 
 	@Override

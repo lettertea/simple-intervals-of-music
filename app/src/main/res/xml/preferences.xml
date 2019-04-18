@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.v7.preference.ListPreference
-        android:key="tonic_note"
-        android:title="Tonic note"
-        android:entries="@array/pref_tonic_notes"
-        android:entryValues="@array/pref_tonic_note_values"/>
+        android:key="lower_note"
+        android:title="Lower note"
+        android:entries="@array/pref_lower_notes"
+        android:entryValues="@array/pref_lower_note_values"/>
 
     <android.support.v7.preference.ListPreference
         android:key="octave"

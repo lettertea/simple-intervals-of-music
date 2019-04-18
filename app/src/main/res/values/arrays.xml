@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_tonic_notes">
+    <string-array name="pref_lower_notes">
         <item>C</item>
         <item>C#</item>
         <item>D</item>
@@ -16,7 +16,7 @@
         <item>B</item>
     </string-array>
 
-    <string-array name="pref_tonic_note_values">
+    <string-array name="pref_lower_note_values">
         <item>4</item>
         <item>5</item>
         <item>6</item>
