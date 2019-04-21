@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.preference.ListPreference
-        android:key="lower_note"
-        android:title="Lower note"
         android:entries="@array/pref_lower_notes"
-        android:entryValues="@array/pref_lower_note_values"/>
+        android:entryValues="@array/pref_lower_note_values"
+        android:key="lower_note"
+        android:title="Lower note" />
 
     <androidx.preference.ListPreference
-        android:key="octave"
-        android:title="Octave"
         android:entries="@array/octaves"
         android:entryValues="@array/octaves"
-/>
+        android:key="octave"
+        android:title="Octave" />
+
+
+    <androidx.preference.MultiSelectListPreference
+        android:entries="@array/included_intervals"
+        android:entryValues="@array/included_intervals_values"
+        android:defaultValue="@array/included_intervals_values"
+        android:key="included_intervals"
+        android:title="Included intervals" />
+
+
 </PreferenceScreen>

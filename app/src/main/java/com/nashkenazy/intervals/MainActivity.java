@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -17,8 +21,13 @@ import android.os.Handler;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
@@ -83,21 +92,26 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
 	private void setupRound() {
 
-		Button soundBtn = findViewById(R.id.button_repeat);
+		Button repeatIntervalBtn = findViewById(R.id.button_repeat);
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
 			nextIntervalBtn.setBackgroundColor(Color.GRAY);
 
+			// Get the user settings
 			int settingsLowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
-			lowerNote = 12 * (octave - 1) + settingsLowerNote;
+			List<String> includedIntervals = new ArrayList<>(sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVALS,null));
 
-			intervalDistance = RAND.nextInt(INTERVALS.size());
+			// Set the answer according to the settings
+			lowerNote = 12 * (octave - 1) + settingsLowerNote;
+			intervalDistance = Integer.parseInt(includedIntervals.get(RAND.nextInt(includedIntervals.size())));
 			upperNote = lowerNote + intervalDistance;
+
 			playInterval(lowerNote, upperNote);
 		});
-		soundBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
+
+		repeatIntervalBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
 	}
 
 	private void stopAllAudio() {
@@ -127,5 +141,5 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		playNoteAfterDelay(lowerNote, INTERVAL_DELAY * 6);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY * 6);
 	}
-	
+
 }

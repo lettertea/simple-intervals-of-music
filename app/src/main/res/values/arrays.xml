@@ -41,4 +41,37 @@
         <item>6</item>
     </string-array>
 
+    <string-array name="included_intervals">
+        <item>Perfect Unison</item>
+        <item>Minor Second</item>
+        <item>Major Second</item>
+        <item>Minor Third</item>
+        <item>Major Third</item>
+        <item>Perfect Fourth</item>
+        <item>Diminished Fifth/Augmented Fourth</item>
+        <item>Perfect Fifth</item>
+        <item>Minor Sixth</item>
+        <item>Major Sixth</item>
+        <item>Minor Seventh</item>
+        <item>Major Seventh</item>
+        <item>Perfect Octave</item>
+    </string-array>
+
+    <string-array name="included_intervals_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+
 </resources>
