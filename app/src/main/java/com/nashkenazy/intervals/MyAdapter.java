@@ -4,13 +4,15 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-	private List<String> values;
+	private List<String> intervalNames;
+	private List<Integer> intervalValues;
 	private OnIntervalClick callback;
 
 	class ViewHolder extends RecyclerView.ViewHolder {
@@ -24,13 +26,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 			txtSemitone = v.findViewById(R.id.text_semitone);
 			txtHeader = v.findViewById(R.id.button_interval);
 		}
-
-
 	}
 
 
-	MyAdapter(List<String> intervals, OnIntervalClick listener) {
-		this.values = intervals;
+	MyAdapter(List<String> intervalNames, List<Integer> intervalValues, OnIntervalClick listener) {
+		this.intervalNames = intervalNames;
+		this.intervalValues = intervalValues;
 		this.callback = listener;
 	}
 
@@ -43,14 +44,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-		holder.txtSemitone.setText(String.valueOf(position));
-		holder.txtHeader.setText(values.get(position));
-		holder.txtHeader.setOnClickListener(v -> callback.onClick(position));
+		int intervalValue = intervalValues.get(position);
+		holder.txtSemitone.setText(String.valueOf(intervalValue));
+		holder.txtHeader.setText(intervalNames.get(position));
+		holder.txtHeader.setOnClickListener(v -> callback.onClick(intervalValue));
 	}
 
 	@Override
 	public int getItemCount() {
-		return values.size();
+		return intervalValues.size();
 	}
 
 }
