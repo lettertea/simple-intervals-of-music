@@ -99,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			nextIntervalBtn.setBackgroundColor(Color.GRAY);
 
 			// Get the user settings
-			int settingsLowerNote = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
+			int lowerNoteLetter = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
 			List<String> includedIntervals = new ArrayList<>(sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVALS,null));
 
 			// Set the answer according to the settings
-			lowerNote = 12 * (octave - 1) + settingsLowerNote;
+			lowerNote = 12 * (octave - 1) + lowerNoteLetter;
 			intervalDistance = Integer.parseInt(includedIntervals.get(RAND.nextInt(includedIntervals.size())));
 			upperNote = lowerNote + intervalDistance;
 
