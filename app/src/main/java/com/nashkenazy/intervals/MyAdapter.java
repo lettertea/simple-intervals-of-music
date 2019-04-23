@@ -11,8 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-	private List<String> intervalNames;
-	private List<Integer> intervalValues;
+	private List<Interval> intervals;
 	private OnIntervalClick callback;
 
 	class ViewHolder extends RecyclerView.ViewHolder {
@@ -28,10 +27,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 		}
 	}
 
-
-	MyAdapter(List<String> intervalNames, List<Integer> intervalValues, OnIntervalClick listener) {
-		this.intervalNames = intervalNames;
-		this.intervalValues = intervalValues;
+	MyAdapter(List<Interval> intervals, OnIntervalClick listener) {
+		this.intervals = intervals;
 		this.callback = listener;
 	}
 
@@ -44,15 +41,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-		int intervalValue = intervalValues.get(position);
+		int intervalValue = intervals.get(position).getSemitones();
 		holder.txtSemitone.setText(String.valueOf(intervalValue));
-		holder.txtHeader.setText(intervalNames.get(position));
+		holder.txtHeader.setText(intervals.get(position).getName());
 		holder.txtHeader.setOnClickListener(v -> callback.onClick(intervalValue));
 	}
 
 	@Override
 	public int getItemCount() {
-		return intervalValues.size();
+		return intervals.size();
 	}
 
 }
