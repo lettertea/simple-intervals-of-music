@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -49,6 +50,18 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
+		// Set the answer according to the settings
+		includedIntervals = new ArrayList<>();
+		for (String interval : sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVALS, null)) {
+			includedIntervals.add(new Interval(Integer.parseInt(interval)));
+		}
+		Collections.sort(includedIntervals, (lhs, rhs) -> lhs.getSemitones() - rhs.getSemitones()); // Makes sure user sees options in order
+
+		// Set answer options
+		RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
+		recyclerView.setHasFixedSize(true);
+		recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+		recyclerView.setAdapter(new MyAdapter(includedIntervals, this));
 
 		setNewRound();
 	}
@@ -86,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		}
 	}
 
-
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
 	private void setNewRound() {
 
@@ -101,22 +113,9 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
 
 			// Set the answer according to the settings
-			includedIntervals = new ArrayList<>();
-			for (String interval : sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVALS, null)) {
-				includedIntervals.add(new Interval(Integer.parseInt(interval)));
-			}
-			Collections.sort(includedIntervals, (lhs, rhs) -> lhs.getSemitones() - rhs.getSemitones()); // Makes sure user sees options in order
-
-			// Set the answer according to the settings
 			lowerNote = 12 * (octave - 1) + lowerNoteLetter;
 			intervalDistance = includedIntervals.get(RAND.nextInt(includedIntervals.size())).getSemitones();
 			upperNote = lowerNote + intervalDistance;
-
-			// Set the available answers according to included intervals preferences
-			RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
-			recyclerView.setHasFixedSize(true);
-			recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-			recyclerView.setAdapter(new MyAdapter(includedIntervals, this));
 
 			playInterval(lowerNote, upperNote);
 		});
