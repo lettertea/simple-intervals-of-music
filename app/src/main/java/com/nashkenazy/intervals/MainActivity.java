@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-		setupRound();
+		setNewRound();
 	}
 
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		return super.onOptionsItemSelected(item);
 	}
 
-	// Adapter listener implementation must be done here instead of setupRound
+	// Adapter listener implementation must be done here instead of setNewRound
 	@Override
 	public void onClick(int semitone) {
 		stopAllAudio();
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	}
 
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
-	private void setupRound() {
+	private void setNewRound() {
 
 		Button repeatIntervalBtn = findViewById(R.id.button_repeat);
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
