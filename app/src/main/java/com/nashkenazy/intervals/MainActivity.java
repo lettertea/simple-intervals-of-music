@@ -2,6 +2,7 @@ package com.nashkenazy.intervals;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.preference.PreferenceManager;
@@ -73,7 +75,9 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		stopAllAudio();
 		if (semitone == intervalDistance) {
 			Button nextIntervalBtn = findViewById(R.id.button_next_interval);
-			nextIntervalBtn.setBackgroundColor(Color.parseColor("#ffae42"));
+			nextIntervalBtn.setEnabled(true);
+			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.parseColor("#ffae42")));
+
 			playNote(88);
 		} else {
 			playNote(1);
@@ -87,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		nextIntervalBtn.setOnClickListener(v -> {
-			nextIntervalBtn.setBackgroundColor(Color.GRAY);
+			nextIntervalBtn.setEnabled(false);
+			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
 
 			int lowerNoteLetter = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
