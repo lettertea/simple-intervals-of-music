@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		handler.postDelayed(() -> playNote(noteNumber), delay);
 	}
 
-
 	private void playInterval(int lowerNote, int upperNote) {
 		stopAllAudio();
 		playNote(lowerNote);
