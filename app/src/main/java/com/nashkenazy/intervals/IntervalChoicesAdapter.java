@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class IntervalChoicesAdapter extends RecyclerView.Adapter<IntervalChoicesAdapter.ViewHolder> {
 	private List<Interval> intervals;
 	private OnIntervalClick callback;
 
@@ -27,13 +27,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 		}
 	}
 
-	MyAdapter(List<Interval> intervals, OnIntervalClick listener) {
+	IntervalChoicesAdapter(List<Interval> intervals, OnIntervalClick listener) {
 		this.intervals = intervals;
 		this.callback = listener;
 	}
 
 	@NonNull
-	public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+	public IntervalChoicesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 		View v = inflater.inflate(R.layout.row_layout, parent, false);
 		return new ViewHolder(v);

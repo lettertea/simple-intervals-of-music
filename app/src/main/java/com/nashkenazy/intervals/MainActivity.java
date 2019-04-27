@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-		recyclerView.setAdapter(new MyAdapter(includedIntervals, this));
+		recyclerView.setAdapter(new IntervalChoicesAdapter(includedIntervals, this));
 
 		setNewRound();
 	}
