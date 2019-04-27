@@ -105,7 +105,13 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		Button repeatIntervalBtn = findViewById(R.id.button_repeat);
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
+
 		nextIntervalBtn.setOnClickListener(v -> {
+
+			if (!repeatIntervalBtn.isEnabled()) {
+				repeatIntervalBtn.setEnabled(true);
+			}
+
 			nextIntervalBtn.setEnabled(false);
 			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
 
