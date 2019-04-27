@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 	private void playInterval() {
 		stopAllAudio();
-		
+
 		switch (intervalType) {
 			case "All":
 				playAllIntervalTypes();

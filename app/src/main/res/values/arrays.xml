@@ -55,8 +55,8 @@
     </string-array>
 
     <string-array name="interval_types">
-        <item>Random</item>
         <item>All</item>
+        <item>Random</item>
         <item>Melodic ascending</item>
         <item>Melodic descending</item>
         <item>Harmonic</item>
