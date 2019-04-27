@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 	private List<Interval> includedIntervals;
 	private String intervalType;
-	int randomIntervalType = -1; // Makes sure repeatIntervalBtn plays the same interval for the randomly generated preference
+	int randomIntervalType = -1;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		return super.onOptionsItemSelected(item);
 	}
 
-	// Adapter listener implementation must be done here instead of setNewRound
+	// onClick for answer choice from adapter
 	@Override
 	public void onClick(int semitone) {
 		stopAllAudio();
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 		nextIntervalBtn.setOnClickListener(v -> {
 
+			// Prevents user from repeating interval when no interval is set
 			if (!repeatIntervalBtn.isEnabled()) {
 				repeatIntervalBtn.setEnabled(true);
 			}
@@ -159,7 +160,10 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 				break;
 			case "Random":
 				List<IntervalType> intervalTypes = ImmutableList.of(this::playAscendingInterval, this::playDescendingInterval, this::playHarmonicInterval);
+
+				// Makes sure repeatIntervalBtn plays the same interval for the randomly generated preference
 				if (randomIntervalType == -1) { randomIntervalType = RAND.nextInt(intervalTypes.size()); }
+
 				intervalTypes.get(randomIntervalType).playInterval();
 				break;
 			case "Melodic ascending":
