@@ -115,11 +115,19 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			nextIntervalBtn.setEnabled(false);
 			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
 
-			int lowerNoteLetter = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
+			int lowerNoteSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_LOWER_NOTE, "4"));
+			if (lowerNoteSetting == -1) {
+				lowerNoteSetting = RAND.nextInt(12) + 1;
+			}
+
 			int octave = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
 
+			if (octave == -1) {
+				octave = RAND.nextInt(6) + 1;
+			}
+
 			// Set the answer according to the settings
-			lowerNote = 12 * (octave - 1) + lowerNoteLetter;
+			lowerNote = 12 * (octave - 1) + lowerNoteSetting;
 			intervalDistance = includedIntervals.get(RAND.nextInt(includedIntervals.size())).getSemitones();
 			upperNote = lowerNote + intervalDistance;
 
