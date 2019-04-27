@@ -16,6 +16,13 @@
         android:key="octave"
         android:title="Octave" />
 
+    <androidx.preference.ListPreference
+        android:summary="%s"
+        android:defaultValue="Random"
+        android:entries="@array/interval_types"
+        android:entryValues="@array/interval_types"
+        android:key="interval_type"
+        android:title="Interval type" />
 
     <androidx.preference.MultiSelectListPreference
         android:entries="@array/included_intervals"

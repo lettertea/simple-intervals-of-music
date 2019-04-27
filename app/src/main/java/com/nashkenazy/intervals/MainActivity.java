@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.preference.PreferenceManager;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	private MediaPlayer mediaPlayer;
 
 	private List<Interval> includedIntervals;
+	private String intervalType;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+		intervalType = sharedPref.getString(SettingsActivity.KEY_PREF_INTERVAL_TYPE, "All");
 
 		// Set the answer according to the settings
 		includedIntervals = new ArrayList<>();
@@ -118,18 +120,18 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			nextIntervalBtn.setEnabled(false);
 			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
 
-			int lowerNoteOffset = lowerNoteSetting == -1 ? RAND.nextInt(12) + 1: lowerNoteSetting;
-			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1: octaveSetting;
+			int lowerNoteOffset = lowerNoteSetting == -1 ? RAND.nextInt(12) + 1 : lowerNoteSetting;
+			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1 : octaveSetting;
 
 			// Set the answer according to the settings
 			lowerNote = 12 * (octaveOffset - 1) + lowerNoteOffset;
 			intervalDistance = includedIntervals.get(RAND.nextInt(includedIntervals.size())).getSemitones();
 			upperNote = lowerNote + intervalDistance;
 
-			playInterval(lowerNote, upperNote);
+			playInterval();
 		});
 
-		repeatIntervalBtn.setOnClickListener(v1 -> playInterval(lowerNote, upperNote));
+		repeatIntervalBtn.setOnClickListener(v1 -> playInterval());
 	}
 
 	private void stopAllAudio() {
@@ -147,8 +149,32 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		handler.postDelayed(() -> playNote(noteNumber), delay);
 	}
 
-	private void playInterval(int lowerNote, int upperNote) {
+	private void playInterval() {
 		stopAllAudio();
+		
+		switch (intervalType) {
+			case "All":
+				playAllIntervalTypes();
+				break;
+			case "Random":
+				List<IntervalType> intervalTypes = ImmutableList.of(this::playAscendingInterval, this::playDescendingInterval, this::playHarmonicInterval);
+				intervalTypes.get(RAND.nextInt(intervalTypes.size())).playInterval();
+				break;
+			case "Melodic ascending":
+				playAscendingInterval();
+				break;
+			case "Melodic descending":
+				playDescendingInterval();
+				break;
+			case "Harmonic":
+				playHarmonicInterval();
+				break;
+		}
+
+	}
+
+
+	private void playAllIntervalTypes() {
 		playNote(lowerNote);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY);
 
@@ -157,6 +183,21 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 		playNoteAfterDelay(lowerNote, INTERVAL_DELAY * 6);
 		playNoteAfterDelay(upperNote, INTERVAL_DELAY * 6);
+	}
+
+	private void playAscendingInterval() {
+		playNote(lowerNote);
+		playNoteAfterDelay(upperNote, INTERVAL_DELAY);
+	}
+
+	private void playDescendingInterval() {
+		playNote(upperNote);
+		playNoteAfterDelay(lowerNote, INTERVAL_DELAY);
+	}
+
+	private void playHarmonicInterval() {
+		playNote(lowerNote);
+		playNote(upperNote);
 	}
 
 }

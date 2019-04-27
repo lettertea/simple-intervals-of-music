@@ -54,6 +54,13 @@
         <item>6</item>
     </string-array>
 
+    <string-array name="interval_types">
+        <item>Random</item>
+        <item>All</item>
+        <item>Melodic ascending</item>
+        <item>Melodic descending</item>
+        <item>Harmonic</item>
+    </string-array>
 
     <string-array name="included_intervals">
         <item>Perfect Unison</item>
