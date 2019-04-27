@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		if (semitone == intervalDistance) {
 			Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 			nextIntervalBtn.setEnabled(true);
-			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(getResources().getColor(R.color.colorNextInterval)));
 
 			playNote(88);
 		} else {
