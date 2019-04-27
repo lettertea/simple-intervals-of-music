@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 
 	private List<Interval> includedIntervals;
 	private String intervalType;
+	int randomIntervalType = -1; // Makes sure repeatIntervalBtn plays the same interval for the randomly generated preference
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -158,7 +159,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 				break;
 			case "Random":
 				List<IntervalType> intervalTypes = ImmutableList.of(this::playAscendingInterval, this::playDescendingInterval, this::playHarmonicInterval);
-				intervalTypes.get(RAND.nextInt(intervalTypes.size())).playInterval();
+				if (randomIntervalType == -1) { randomIntervalType = RAND.nextInt(intervalTypes.size()); }
+				intervalTypes.get(randomIntervalType).playInterval();
 				break;
 			case "Melodic ascending":
 				playAscendingInterval();
