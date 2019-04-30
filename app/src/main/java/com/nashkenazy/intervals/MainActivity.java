@@ -109,7 +109,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		final int octaveSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
-		final int lowerNoteSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_NOTE, "4"));
+		final String positionSetting = sharedPref.getString(SettingsActivity.KEY_PREF_POSITION, "Random");
+		final int noteSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_NOTE, "4"));
 
 
 		nextIntervalBtn.setOnClickListener(v -> {
@@ -122,13 +123,21 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			nextIntervalBtn.setEnabled(false);
 			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
 
-			int lowerNoteOffset = lowerNoteSetting == -1 ? RAND.nextInt(12) + 1 : lowerNoteSetting;
-			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1 : octaveSetting;
+			intervalDistance = includedIntervals.get(RAND.nextInt(includedIntervals.size())).getSemitones();
 
 			// Set the answer according to the settings
-			lowerNote = 12 * (octaveOffset - 1) + lowerNoteOffset;
-			intervalDistance = includedIntervals.get(RAND.nextInt(includedIntervals.size())).getSemitones();
-			upperNote = lowerNote + intervalDistance;
+			int noteOffset = noteSetting == -1 ? RAND.nextInt(12) + 1 : noteSetting;
+			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1 : octaveSetting;
+
+			switch (positionSetting){
+				case "Upper":
+					upperNote = 12 * (octaveOffset - 1) + noteOffset;
+					lowerNote = upperNote - intervalDistance;
+					break;
+				default: // Default accommodates both lower and random positions
+					lowerNote = 12 * (octaveOffset - 1) + noteOffset;
+					upperNote = lowerNote + intervalDistance;
+			}
 
 			playInterval();
 		});
