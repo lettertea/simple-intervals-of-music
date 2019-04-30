@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="fixed_notes">
+    <string-array name="positions">
         <item>None</item>
         <item>Upper</item>
         <item>Lower</item>
     </string-array>
 
 
-    <string-array name="note_lettars">
+    <string-array name="notes">
         <item>Random</item>
         <item>C</item>
         <item>C#</item>
@@ -24,7 +24,7 @@
         <item>B</item>
     </string-array>
 
-    <string-array name="note_lettars_values">
+    <string-array name="notes_values">
         <item>-1</item>
         <item>4</item>
         <item>5</item>
