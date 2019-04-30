@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_lower_notes">
+    <string-array name="fixed_notes">
+        <item>None</item>
+        <item>Upper</item>
+        <item>Lower</item>
+    </string-array>
+
+
+    <string-array name="note_lettars">
         <item>Random</item>
         <item>C</item>
         <item>C#</item>
@@ -17,7 +24,7 @@
         <item>B</item>
     </string-array>
 
-    <string-array name="pref_lower_note_values">
+    <string-array name="note_lettars_values">
         <item>-1</item>
         <item>4</item>
         <item>5</item>
