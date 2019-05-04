@@ -15,6 +15,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_interval"
         style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textAllCaps="false"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toEndOf="@id/text_semitone"/>

@@ -5,8 +5,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 
 public class Interval {
-	public static final List<String> INTERVALS = ImmutableList.of("Perfect Unison", "Minor Second", "Major Second", "Minor Third", "Major Third", "Perfect Fourth", "Diminished Fifth/Augmented Fourth", "Perfect Fifth", "Minor Sixth", "Major Sixth", "Minor Seventh", "Major Seventh", "Perfect Octave");
-
+	public static final List<String> INTERVALS = ImmutableList.of("P1", "m2", "M2", "m3", "M3", "P4", "d5", "P5", "m6", "M6", "m7", "M7", "P8");
 
 	private int semitones;
 	private String name;

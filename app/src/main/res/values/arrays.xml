@@ -70,19 +70,19 @@
     </string-array>
 
     <string-array name="included_interval_types">
-        <item>Perfect Unison</item>
-        <item>Minor Second</item>
-        <item>Major Second</item>
-        <item>Minor Third</item>
-        <item>Major Third</item>
-        <item>Perfect Fourth</item>
-        <item>Diminished Fifth/Augmented Fourth</item>
-        <item>Perfect Fifth</item>
-        <item>Minor Sixth</item>
-        <item>Major Sixth</item>
-        <item>Minor Seventh</item>
-        <item>Major Seventh</item>
-        <item>Perfect Octave</item>
+        <item>P1</item>
+        <item>m2</item>
+        <item>M2</item>
+        <item>m3</item>
+        <item>M3</item>
+        <item>P4</item>
+        <item>d5</item>
+        <item>P5</item>
+        <item>m6</item>
+        <item>M6</item>
+        <item>m7</item>
+        <item>M7</item>
+        <item>P8</item>
     </string-array>
 
     <string-array name="included_interval_types_values">
