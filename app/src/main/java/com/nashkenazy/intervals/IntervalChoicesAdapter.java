@@ -29,7 +29,6 @@ public class IntervalChoicesAdapter extends RecyclerView.Adapter<IntervalChoices
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 		int intervalValue = intervals.get(position).getSemitones();
-		holder.txtSemitone.setText(String.valueOf(intervalValue));
 		holder.txtHeader.setText(intervals.get(position).getName());
 		holder.txtHeader.setOnClickListener(v -> callback.onClick(intervalValue));
 	}
@@ -41,13 +40,11 @@ public class IntervalChoicesAdapter extends RecyclerView.Adapter<IntervalChoices
 
 	class ViewHolder extends RecyclerView.ViewHolder {
 		View layout;
-		TextView txtSemitone;
 		TextView txtHeader;
 
 		ViewHolder(View v) {
 			super(v);
 			layout = v;
-			txtSemitone = v.findViewById(R.id.text_semitone);
 			txtHeader = v.findViewById(R.id.button_interval);
 		}
 	}

@@ -5,20 +5,13 @@
     android:padding="12dp">
 
 
-    <TextView
-        android:id="@+id/text_semitone"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginEnd="12dp"
-        android:gravity="center_vertical" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_interval"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textAllCaps="false"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_toEndOf="@id/text_semitone"/>
+/>
 
 
 
