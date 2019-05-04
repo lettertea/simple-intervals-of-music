@@ -1,10 +1,8 @@
 package com.nashkenazy.intervals;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
-
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 	public static final String KEY_PREF_POSITION = "position";
@@ -21,7 +19,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 	}
-
 
 
 }

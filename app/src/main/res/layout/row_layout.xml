@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeightLarge"
-    android:padding="12dp"
-    >
+    android:padding="12dp">
 
 
     <TextView
@@ -18,8 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toEndOf="@id/text_semitone"
-        android:stateListAnimator="@xml/btn_animator"
-        />
+        android:stateListAnimator="@xml/btn_animator" />
 
 
 </RelativeLayout>

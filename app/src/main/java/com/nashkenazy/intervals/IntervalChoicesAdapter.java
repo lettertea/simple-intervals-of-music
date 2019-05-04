@@ -1,31 +1,18 @@
 package com.nashkenazy.intervals;
 
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 public class IntervalChoicesAdapter extends RecyclerView.Adapter<IntervalChoicesAdapter.ViewHolder> {
 	private List<Interval> intervals;
 	private OnIntervalClick callback;
-
-	class ViewHolder extends RecyclerView.ViewHolder {
-		View layout;
-		TextView txtSemitone;
-		TextView txtHeader;
-
-		ViewHolder(View v) {
-			super(v);
-			layout = v;
-			txtSemitone = v.findViewById(R.id.text_semitone);
-			txtHeader = v.findViewById(R.id.button_interval);
-		}
-	}
 
 	IntervalChoicesAdapter(List<Interval> intervals, OnIntervalClick listener) {
 		this.intervals = intervals;
@@ -50,6 +37,19 @@ public class IntervalChoicesAdapter extends RecyclerView.Adapter<IntervalChoices
 	@Override
 	public int getItemCount() {
 		return intervals.size();
+	}
+
+	class ViewHolder extends RecyclerView.ViewHolder {
+		View layout;
+		TextView txtSemitone;
+		TextView txtHeader;
+
+		ViewHolder(View v) {
+			super(v);
+			layout = v;
+			txtSemitone = v.findViewById(R.id.text_semitone);
+			txtHeader = v.findViewById(R.id.button_interval);
+		}
 	}
 
 }
