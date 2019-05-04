@@ -12,12 +12,14 @@
         android:layout_marginEnd="12dp"
         android:gravity="center_vertical" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_interval"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_toEndOf="@id/text_semitone"
-        android:stateListAnimator="@xml/btn_animator" />
+        android:layout_toEndOf="@id/text_semitone"/>
+
+
 
 
 </RelativeLayout>
