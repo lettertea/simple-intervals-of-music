@@ -5,4 +5,5 @@
     <color name="colorAccent">#704d42</color>
 
     <color name="colorNextInterval">#FFC107</color>
+    <color name="colorRepeatInterval">#4F3E44</color>
 </resources>

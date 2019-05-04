@@ -17,6 +17,7 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -89,10 +90,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	public void onClick(int semitone) {
 		stopAllAudio();
 		if (semitone == intervalDistance) {
-			Button nextIntervalBtn = findViewById(R.id.button_next_interval);
+			MaterialButton nextIntervalBtn = findViewById(R.id.button_next_interval);
 			nextIntervalBtn.setEnabled(true);
-			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(getResources().getColor(R.color.colorNextInterval)));
-
 			playNote(88);
 		} else {
 			playNote(1);
@@ -102,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	//  Does not setup elements in RecyclerView as it must be implemented in the class
 	private void setNewRound() {
 
-		Button repeatIntervalBtn = findViewById(R.id.button_repeat);
-		Button nextIntervalBtn = findViewById(R.id.button_next_interval);
+		MaterialButton repeatIntervalBtn = findViewById(R.id.button_repeat);
+		MaterialButton nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		final int octaveSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
 		final String positionSetting = sharedPref.getString(SettingsActivity.KEY_PREF_POSITION, "Random");
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			}
 
 			nextIntervalBtn.setEnabled(false);
-			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
+
 
 			intervalDistance = includedIntervalTypes.get(RAND.nextInt(includedIntervalTypes.size())).getSemitones();
 
