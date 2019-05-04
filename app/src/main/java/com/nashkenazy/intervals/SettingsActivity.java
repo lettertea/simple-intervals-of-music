@@ -10,8 +10,8 @@ public class SettingsActivity extends AppCompatActivity {
 	public static final String KEY_PREF_POSITION = "position";
 	public static final String KEY_PREF_NOTE = "note";
 	public static final String KEY_PREF_OCTAVE = "octave";
-	public static final String KEY_PREF_INCLUDED_INTERVALS = "included_intervals";
-	public static final String KEY_PREF_INTERVAL_TYPE = "interval_type";
+	public static final String KEY_PREF_INCLUDED_INTERVAL_TYPES = "included_interval_types";
+	public static final String KEY_PREF_PLAYBACK_SEQUENCES = "playback_sequence";
 
 
 	@Override

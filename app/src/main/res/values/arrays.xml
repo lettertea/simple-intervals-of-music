@@ -61,7 +61,7 @@
         <item>6</item>
     </string-array>
 
-    <string-array name="interval_types">
+    <string-array name="playback_sequences">
         <item>All</item>
         <item>Random</item>
         <item>Melodic ascending</item>
@@ -69,7 +69,7 @@
         <item>Harmonic</item>
     </string-array>
 
-    <string-array name="included_intervals">
+    <string-array name="included_interval_types">
         <item>Perfect Unison</item>
         <item>Minor Second</item>
         <item>Major Second</item>
@@ -85,7 +85,7 @@
         <item>Perfect Octave</item>
     </string-array>
 
-    <string-array name="included_intervals_values">
+    <string-array name="included_interval_types_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>

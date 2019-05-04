@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	private SharedPreferences sharedPref;
 	private MediaPlayer mediaPlayer;
 
-	private List<Interval> includedIntervals;
+	private List<Interval> includedIntervalTypes;
 	private String intervalType;
 	int randomIntervalType = -1;
 
@@ -51,22 +53,23 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-		intervalType = sharedPref.getString(SettingsActivity.KEY_PREF_INTERVAL_TYPE, "All");
+		intervalType = sharedPref.getString(SettingsActivity.KEY_PREF_PLAYBACK_SEQUENCES, "All");
 
 		// Set the answer according to the settings
-		includedIntervals = new ArrayList<>();
-		for (String interval : sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVALS, null)) {
-			includedIntervals.add(new Interval(Integer.parseInt(interval)));
+		includedIntervalTypes = new ArrayList<>();
+		for (String interval : sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVAL_TYPES, null)) {
+			includedIntervalTypes.add(new Interval(Integer.parseInt(interval)));
 		}
-		Collections.sort(includedIntervals, (lhs, rhs) -> lhs.getSemitones() - rhs.getSemitones()); // Makes sure user sees options in order
+		Collections.sort(includedIntervalTypes, (lhs, rhs) -> lhs.getSemitones() - rhs.getSemitones()); // Makes sure user sees options in order
 
 		// Set answer options
 		RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-		recyclerView.setAdapter(new IntervalChoicesAdapter(includedIntervals, this));
+		recyclerView.setAdapter(new IntervalChoicesAdapter(includedIntervalTypes, this));
 
 		setNewRound();
+
 	}
 
 
@@ -123,13 +126,13 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			nextIntervalBtn.setEnabled(false);
 			ViewCompat.setBackgroundTintList(nextIntervalBtn, ColorStateList.valueOf(Color.LTGRAY));
 
-			intervalDistance = includedIntervals.get(RAND.nextInt(includedIntervals.size())).getSemitones();
+			intervalDistance = includedIntervalTypes.get(RAND.nextInt(includedIntervalTypes.size())).getSemitones();
 
 			// Set the answer according to the settings
 			int noteOffset = noteSetting == -1 ? RAND.nextInt(12) + 1 : noteSetting;
 			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1 : octaveSetting;
 
-			switch (positionSetting){
+			switch (positionSetting) {
 				case "Upper":
 					upperNote = 12 * (octaveOffset - 1) + noteOffset;
 					lowerNote = upperNote - intervalDistance;

@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Fixed note">
+    <PreferenceCategory android:title="General">
+
         <androidx.preference.ListPreference
+            android:defaultValue="4"
+            android:entries="@array/notes"
+            android:entryValues="@array/notes_values"
+            android:key="note"
             android:summary="%s"
+            android:title="Fixed note" />
+
+        <androidx.preference.ListPreference
             android:defaultValue="None"
             android:entries="@array/positions"
             android:entryValues="@array/positions"
             android:key="position"
-            android:title="Position" />
+            android:summary="%s"
+            android:title="Fixed note position" />
 
-
-    <androidx.preference.ListPreference
-        android:summary="%s"
-        android:defaultValue="4"
-        android:entries="@array/notes"
-        android:entryValues="@array/notes_values"
-        android:key="note"
-        android:title="Note" />
-
-    <androidx.preference.ListPreference
-        android:summary="%s"
-        android:defaultValue="4"
-        android:entries="@array/octaves"
-        android:entryValues="@array/octaves_values"
-        android:key="octave"
-        android:title="Octave" />
+        <androidx.preference.ListPreference
+            android:defaultValue="4"
+            android:entries="@array/octaves"
+            android:entryValues="@array/octaves_values"
+            android:key="octave"
+            android:summary="%s"
+            android:title="Keyboard range" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Interval">
-    <androidx.preference.ListPreference
-        android:summary="%s"
-        android:defaultValue="Random"
-        android:entries="@array/interval_types"
-        android:entryValues="@array/interval_types"
-        android:key="interval_type"
-        android:title="Interval type" />
+        <androidx.preference.ListPreference
+            android:defaultValue="Random"
+            android:entries="@array/playback_sequences"
+            android:entryValues="@array/playback_sequences"
+            android:key="playback_sequence"
+            android:summary="%s"
+            android:title="Playback sequence" />
 
-    <androidx.preference.MultiSelectListPreference
-        android:entries="@array/included_intervals"
-        android:entryValues="@array/included_intervals_values"
-        android:defaultValue="@array/included_intervals_values"
-        android:key="included_intervals"
-        android:title="Included intervals" />
+        <androidx.preference.MultiSelectListPreference
+            android:defaultValue="@array/included_interval_types_values"
+            android:entries="@array/included_interval_types"
+            android:entryValues="@array/included_interval_types_values"
+            android:key="included_interval_types"
+            android:title="Included interval types" />
     </PreferenceCategory>
 
 </PreferenceScreen>
