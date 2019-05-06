@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="positions">
-        <item>None</item>
+        <item>Random</item>
         <item>Upper</item>
         <item>Lower</item>
     </string-array>
@@ -62,11 +62,11 @@
     </string-array>
 
     <string-array name="playback_sequences">
-        <item>All</item>
+        <item>Lower-upper</item>
+        <item>Upper-lower</item>
+        <item>Simultaneous</item>
+        <item>All (lower-upper, upper-lower, simultaneous)</item>
         <item>Random</item>
-        <item>Melodic ascending</item>
-        <item>Melodic descending</item>
-        <item>Harmonic</item>
     </string-array>
 
     <string-array name="included_interval_types">

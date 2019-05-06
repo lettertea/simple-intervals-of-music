@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -159,26 +160,29 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 	private void playInterval() {
 		stopAllAudio();
 
-		switch (intervalType) {
+		// Check only the first three letters to reduce size
+		// Based on interval type setting
+
+		switch (intervalType.substring(0,3)) {
+			case "Low":
+				playAscendingInterval();
+				break;
+			case "Upp":
+				playDescendingInterval();
+				break;
+			case "Sim":
+				playHarmonicInterval();
+				break;
 			case "All":
 				playAllIntervalTypes();
 				break;
-			case "Random":
+			case "Ran":
 				List<IntervalType> intervalTypes = ImmutableList.of(this::playAscendingInterval, this::playDescendingInterval, this::playHarmonicInterval);
 
 				// Makes sure repeatIntervalBtn plays the same interval for the randomly generated preference
 				if (randomIntervalType == -1) { randomIntervalType = RAND.nextInt(intervalTypes.size()); }
 
 				intervalTypes.get(randomIntervalType).playInterval();
-				break;
-			case "Melodic ascending":
-				playAscendingInterval();
-				break;
-			case "Melodic descending":
-				playDescendingInterval();
-				break;
-			case "Harmonic":
-				playHarmonicInterval();
 				break;
 		}
 
