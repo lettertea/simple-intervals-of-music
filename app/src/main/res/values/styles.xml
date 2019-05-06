@@ -8,8 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
-
-    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:textColor">#fff</item>
-    </style>
 </resources>
