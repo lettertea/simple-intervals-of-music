@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			intervalDistance = includedIntervalTypes.get(RAND.nextInt(includedIntervalTypes.size())).getSemitones();
 
 			// Set the answer according to the settings
+			// 0 indicates random
 			int noteOffset = noteSetting == -1 ? RAND.nextInt(12) + 1 : noteSetting;
 			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1 : octaveSetting;
 

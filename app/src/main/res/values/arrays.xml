@@ -9,6 +9,10 @@
 
     <string-array name="notes">
         <item>Random</item>
+
+        <item>A</item>
+        <item>A#</item>
+        <item>B</item>
         <item>C</item>
         <item>C#</item>
         <item>D</item>
@@ -18,14 +22,14 @@
         <item>F#</item>
         <item>G</item>
         <item>G#</item>
-
-        <item>A</item>
-        <item>A#</item>
-        <item>B</item>
     </string-array>
 
     <string-array name="notes_values">
         <item>-1</item>
+
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
         <item>4</item>
         <item>5</item>
         <item>6</item>
@@ -35,14 +39,11 @@
         <item>10</item>
         <item>11</item>
         <item>12</item>
-
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
     </string-array>
 
     <string-array name="octaves">
         <item>Random</item>
+
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -53,6 +54,7 @@
 
     <string-array name="octaves_values">
         <item>-1</item>
+
         <item>1</item>
         <item>2</item>
         <item>3</item>

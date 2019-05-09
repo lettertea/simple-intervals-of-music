@@ -11,7 +11,7 @@
             android:title="Fixed note" />
 
         <androidx.preference.ListPreference
-            android:defaultValue="None"
+            android:defaultValue="Lower"
             android:entries="@array/positions"
             android:entryValues="@array/positions"
             android:key="position"
