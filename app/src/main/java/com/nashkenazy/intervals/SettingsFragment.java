@@ -8,7 +8,10 @@ import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.google.common.collect.Sets;
+
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -192,9 +195,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 			upperNoteOctaveOffset += 1;
 		}
 
-
 		CharSequence lowerNoteLetter = noteEntries[lowerNoteValue - 1];
 		CharSequence upperNoteLetter = noteEntries[upperNoteValue - 1];
+
+		Set<String> octaveLowerNotes = Sets.newHashSet("A", "A#", "B");
+		if (octaveLowerNotes.contains(lowerNoteLetter.toString())) { --lowerNoteOctaveOffset; }
+		if (octaveLowerNotes.contains(upperNoteLetter.toString())) { --upperNoteOctaveOffset; }
 
 		keyboardRangeEntries[0] = "Random";
 		// Start from 1 to avoid overwriting the Random entry
