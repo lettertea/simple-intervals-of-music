@@ -8,10 +8,7 @@ import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.google.common.collect.Sets;
-
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -65,12 +62,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 		int intervalRange = 0;
 		String key = preference.getKey();
-
+		String currentPosition = position.getValue();
+		String currentNoteValue = noteLetter.getValue();
 
 		Set includedIntervalTypesForRange = includedIntervalTypes.getValues();
+
 		if (key.equals(SettingsActivity.KEY_PREF_INCLUDED_INTERVAL_TYPES)) {
-			includedIntervalTypesForRange = (Set) newValue;  // Downcasting to Set will always be safe if the preference is a MultiSelectListPreference
+			includedIntervalTypesForRange = (Set) newValue;
 		}
+		if (key.equals(SettingsActivity.KEY_PREF_POSITION)) { currentPosition = newValue.toString(); }
+		if (key.equals(SettingsActivity.KEY_PREF_NOTE)) { currentNoteValue = newValue.toString(); }
+
 		for (Object semitonesString : includedIntervalTypesForRange) {
 			int semitones = Integer.parseInt(semitonesString.toString());
 			if (intervalRange < semitones) {
@@ -78,144 +80,47 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 			}
 		}
 
-
-		CharSequence[] keyboardRangeEntries = new String[7]; // There will always be 7 entries in keyboard range settings
+		CharSequence[] keyboardRangeEntries = new String[6];
 		CharSequence[] noteEntries = noteLetter.getEntries().clone();
 		Arrays.sort(noteEntries);
 
-
-		int lowerNoteValue = 0;
-		int upperNoteValue = 0;
-		int lowerNoteOctaveOffset = 0;
-		int upperNoteOctaveOffset = 0;
-
-		System.out.println(key);
-
-		String currentPosition = position.getValue();
-		if (key.equals(SettingsActivity.KEY_PREF_POSITION)) { currentPosition = newValue.toString(); }
-
-
-		String currentNoteLetter = noteLetter.getValue();
-		if (key.equals(SettingsActivity.KEY_PREF_NOTE)) { currentNoteLetter = newValue.toString(); }
-
-		if (currentPosition.equals("Upper")) {
-			upperNoteValue = Integer.parseInt(currentNoteLetter);
-			lowerNoteValue = upperNoteValue - intervalRange;
-		} else if (currentPosition.equals("Lower")) {
-			lowerNoteValue = Integer.parseInt(currentNoteLetter);
-			upperNoteValue = lowerNoteValue + intervalRange;
-		} else {
-			upperNoteValue = 12 + intervalRange;
-			lowerNoteValue = 1 - intervalRange;
-		}
-
-		if (upperNoteValue == -1) {
-			upperNoteValue = 12;
-			lowerNoteValue = 1 - intervalRange;
-		} else if (lowerNoteValue == -1) {
-			lowerNoteValue = 1;
-			upperNoteValue = 12 + intervalRange;
-		}
-		while (lowerNoteValue < 0) {
-			lowerNoteValue += 12;
-			lowerNoteOctaveOffset -= 1;
-		}
-		while (upperNoteValue > 12) {
-			upperNoteValue -= 12;
-			upperNoteOctaveOffset += 1;
-		}
-
-
-		CharSequence lowerNoteLetter = noteEntries[lowerNoteValue - 1];
-		CharSequence upperNoteLetter = noteEntries[upperNoteValue - 1];
-
-		Set<String> octaveLowerNotes = Sets.newHashSet("A", "A#", "B");
-		if (octaveLowerNotes.contains(lowerNoteLetter.toString())) { --lowerNoteOctaveOffset; }
-		if (octaveLowerNotes.contains(upperNoteLetter.toString())) { --upperNoteOctaveOffset; }
+		int lowerNoteValue;
+		int upperNoteValue;
 
 		keyboardRangeEntries[0] = "Random";
 		// Start from 1 to avoid overwriting the Random entry
 		for (int i = 1; i < keyboardRangeEntries.length; i++) {
-			keyboardRangeEntries[i] = lowerNoteLetter + String.valueOf(lowerNoteOctaveOffset + i) + " - " + upperNoteLetter + String.valueOf(upperNoteOctaveOffset + i);
+			int octaveOffset = i + 1;
+
+			switch (currentPosition) {
+				case "Upper":
+					upperNoteValue = 12 * (octaveOffset - 1) + Integer.parseInt(currentNoteValue);
+					lowerNoteValue = upperNoteValue - intervalRange;
+					break;
+				default: // Default accommodates both lower and random positions
+					lowerNoteValue = 12 * (octaveOffset - 1) + Integer.parseInt(currentNoteValue);
+					upperNoteValue = lowerNoteValue + intervalRange;
+			}
+
+			String lowerNoteLetter = noteEntries[(lowerNoteValue - 1) % 12].toString();
+			String upperNoteLetter = noteEntries[(upperNoteValue - 1) % 12].toString();
+			// Add 8 to begin 1 octave at C and apply 0 octave to A, A#, B.
+			String lowerNoteOctave = String.valueOf((lowerNoteValue + 8) / 12);
+			String upperNoteOctave = String.valueOf((upperNoteValue + 8) / 12);
+
+			keyboardRangeEntries[i] = lowerNoteLetter + lowerNoteOctave + " - " + upperNoteLetter + upperNoteOctave;
 		}
 
 		keyboardRange.setEntries(keyboardRangeEntries);
 
 		//  Must reset the summary because %s in preferences.xml does not update to the updated entry
 		keyboardRange.setSummary(keyboardRangeEntries[Integer.parseInt(keyboardRange.getValue())]);
-
-		System.out.println("Rchead!");
 		return true;
 	}
 
+	// Workaround to use default arguments
 	private boolean setKeyboardRange() {
-
-		int intervalRange = 0;
-
-		for (Object semitonesString : includedIntervalTypes.getValues()) {
-			int semitones = Integer.parseInt(semitonesString.toString());
-			if (intervalRange < semitones) {
-				intervalRange = semitones;
-			}
-		}
-
-		CharSequence[] keyboardRangeEntries = new String[7]; // There will always be 7 entries in keyboard range settings
-		CharSequence[] noteEntries = noteLetter.getEntries().clone();
-		Arrays.sort(noteEntries);
-
-		int lowerNoteValue = 0;
-		int upperNoteValue = 0;
-		int lowerNoteOctaveOffset = 0;
-		int upperNoteOctaveOffset = 0;
-
-
-		if (position.getValue().equals("Upper")) {
-			upperNoteValue = Integer.parseInt(noteLetter.getValue());
-			lowerNoteValue = upperNoteValue - intervalRange;
-		} else if (position.getValue().equals("Lower")) {
-			lowerNoteValue = Integer.parseInt(noteLetter.getValue());
-			upperNoteValue = lowerNoteValue + intervalRange;
-		} else {
-			upperNoteValue = 12 + intervalRange;
-			lowerNoteValue = 1 - intervalRange;
-		}
-
-
-		if (upperNoteValue == -1) {
-			upperNoteValue = 12;
-			lowerNoteValue = 1 - intervalRange;
-		}
-		if (lowerNoteValue == -1) {
-			lowerNoteValue = 1;
-			upperNoteValue = 12 + intervalRange;
-		}
-
-		while (lowerNoteValue < 0) {
-			lowerNoteValue += 12;
-			lowerNoteOctaveOffset -= 1;
-		}
-		while (upperNoteValue > 12) {
-			upperNoteValue -= 12;
-			upperNoteOctaveOffset += 1;
-		}
-
-		CharSequence lowerNoteLetter = noteEntries[lowerNoteValue - 1];
-		CharSequence upperNoteLetter = noteEntries[upperNoteValue - 1];
-
-		Set<String> octaveLowerNotes = Sets.newHashSet("A", "A#", "B");
-		if (octaveLowerNotes.contains(lowerNoteLetter.toString())) { --lowerNoteOctaveOffset; }
-		if (octaveLowerNotes.contains(upperNoteLetter.toString())) { --upperNoteOctaveOffset; }
-
-		keyboardRangeEntries[0] = "Random";
-		// Start from 1 to avoid overwriting the Random entry
-		for (int i = 1; i < keyboardRangeEntries.length; i++) {
-			keyboardRangeEntries[i] = lowerNoteLetter + String.valueOf(lowerNoteOctaveOffset + i) + " - " + upperNoteLetter + String.valueOf(upperNoteOctaveOffset + i);
-		}
-
-		keyboardRange.setEntries(keyboardRangeEntries);
-
-		System.out.println("Rchead!");
-		return true;
+		return setKeyboardRange(noteLetter, noteLetter.getValue()); // The arguments used doesn't matter. Just need to be valid.
 	}
 
 
