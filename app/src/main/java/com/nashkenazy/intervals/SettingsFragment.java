@@ -31,32 +31,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 		setKeyboardRange();
 		includedIntervalTypes.setOnPreferenceChangeListener(this::setKeyboardRange);
 		noteLetter.setOnPreferenceChangeListener(this::setKeyboardRange);
-
-		disablePositionWhenNoFixedNote();
-		position.setOnPreferenceChangeListener((preference, newValue) -> {
-			setKeyboardRange(preference, newValue);
-			disableFixedNoteWhenRandomPosition(newValue);
-			return true;
-		});
-
+		position.setOnPreferenceChangeListener(this::setKeyboardRange);
 
 	}
 
-	private void disableFixedNoteWhenRandomPosition(Object newValue) {
-		if (newValue.toString().equals("Random")) {
-			noteLetter.setEnabled(false);
-			noteLetter.setValue("-1");
-		} else if (!newValue.toString().equals("Random") && !noteLetter.isEnabled()) {
-			noteLetter.setEnabled(true);
-		}
-	}
-
-	private void disablePositionWhenNoFixedNote() {
-		if (position.getValue().equals("Random")) {
-			noteLetter.setEnabled(false);
-			noteLetter.setValue("-1");
-		}
-	}
 
 	private boolean setKeyboardRange(Preference preference, Object newValue) {
 
@@ -92,14 +70,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 		for (int i = 1; i < keyboardRangeEntries.length; i++) {
 			int octaveOffset = i + 1;
 
-			switch (currentPosition) {
-				case "Upper":
-					upperNoteValue = 12 * (octaveOffset - 1) + Integer.parseInt(currentNoteValue);
-					lowerNoteValue = upperNoteValue - intervalRange;
-					break;
-				default: // Default accommodates both lower and random positions
-					lowerNoteValue = 12 * (octaveOffset - 1) + Integer.parseInt(currentNoteValue);
-					upperNoteValue = lowerNoteValue + intervalRange;
+			if (currentNoteValue.equals("-1")) {
+				switch (currentPosition) {
+					case "Upper":
+						upperNoteValue = 12 * (octaveOffset - 1) + 12;
+						lowerNoteValue = 12 * (octaveOffset - 1) + 1 - intervalRange;
+						break;
+					default:
+						lowerNoteValue = 12 * (octaveOffset - 1) + 1;
+						upperNoteValue = 12 * (octaveOffset - 1) + 12 + intervalRange;
+				}
+			} else {
+				switch (currentPosition) {
+					case "Upper":
+						upperNoteValue = 12 * (octaveOffset - 1) + Integer.parseInt(currentNoteValue);
+						lowerNoteValue = upperNoteValue - intervalRange;
+						break;
+					default:
+						lowerNoteValue = 12 * (octaveOffset - 1) + Integer.parseInt(currentNoteValue);
+						upperNoteValue = lowerNoteValue + intervalRange;
+				}
 			}
 
 			String lowerNoteLetter = noteEntries[(lowerNoteValue - 1) % 12].toString();
@@ -120,8 +110,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 	// Workaround to use default arguments
 	private boolean setKeyboardRange() {
-		return setKeyboardRange(noteLetter, noteLetter.getValue()); // The arguments used doesn't matter. Just need to be valid.
+		return setKeyboardRange(noteLetter, noteLetter.getValue()); // What arguments are used don't matter. Just need to be valid.
 	}
-
 
 }

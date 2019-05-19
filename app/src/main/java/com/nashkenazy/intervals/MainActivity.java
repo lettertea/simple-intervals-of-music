@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		MaterialButton nextIntervalBtn = findViewById(R.id.button_next_interval);
 
 		final int octaveSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_OCTAVE, "4"));
-		final String positionSetting = sharedPref.getString(SettingsActivity.KEY_PREF_POSITION, "Random");
+		final String positionSetting = sharedPref.getString(SettingsActivity.KEY_PREF_POSITION, "Lower");
 		final int noteSetting = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_NOTE, "4"));
 
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 					upperNote = 12 * (octaveOffset - 1) + noteOffset;
 					lowerNote = upperNote - intervalDistance;
 					break;
-				default: // Default accommodates both lower and random positions
+				default:
 					lowerNote = 12 * (octaveOffset - 1) + noteOffset;
 					upperNote = lowerNote + intervalDistance;
 			}
