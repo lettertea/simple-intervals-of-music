@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,6 +57,14 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		for (String interval : sharedPref.getStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVAL_TYPES, null)) {
 			includedIntervalTypes.add(new Interval(Integer.parseInt(interval)));
 		}
+		// Avoid crashing if user selects no included intervals
+		if (includedIntervalTypes.size() < 1) {
+			includedIntervalTypes.add(new Interval(0));
+			SharedPreferences.Editor editor = sharedPref.edit();
+			editor.putStringSet(SettingsActivity.KEY_PREF_INCLUDED_INTERVAL_TYPES, Sets.newHashSet("0"));
+			editor.apply();
+		}
+
 		Collections.sort(includedIntervalTypes, (lhs, rhs) -> lhs.getSemitones() - rhs.getSemitones()); // Makes sure user sees options in order
 
 		// Set answer options
