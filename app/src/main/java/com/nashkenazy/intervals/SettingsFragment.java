@@ -40,16 +40,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 		int intervalRange = 0;
 		String key = preference.getKey();
+
 		String currentPosition = position.getValue();
 		String currentNoteValue = noteLetter.getValue();
-
+		String currentKeyboardRangeValue = keyboardRange.getValue();
 		Set includedIntervalTypesForRange = includedIntervalTypes.getValues();
 
-		if (key.equals(SettingsActivity.KEY_PREF_INCLUDED_INTERVAL_TYPES)) {
-			includedIntervalTypesForRange = (Set) newValue;
-		}
 		if (key.equals(SettingsActivity.KEY_PREF_POSITION)) { currentPosition = newValue.toString(); }
 		if (key.equals(SettingsActivity.KEY_PREF_NOTE)) { currentNoteValue = newValue.toString(); }
+		if (key.equals(SettingsActivity.KEY_PREF_OCTAVE)) { currentKeyboardRangeValue = newValue.toString(); }
+		if (key.equals(SettingsActivity.KEY_PREF_INCLUDED_INTERVAL_TYPES)) { includedIntervalTypesForRange = (Set) newValue; }
+
 
 		for (Object semitonesString : includedIntervalTypesForRange) {
 			int semitones = Integer.parseInt(semitonesString.toString());
@@ -94,7 +95,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 			String lowerNoteLetter = noteEntries[(lowerNoteValue - 1) % 12].toString();
 			String upperNoteLetter = noteEntries[(upperNoteValue - 1) % 12].toString();
-			// Add 8 to begin 1 octave at C and apply 0 octave to A, A#, B.
+			// Add 8 to begin octave 1 at C and apply octave 0 to A, A#, B.
 			String lowerNoteOctave = String.valueOf((lowerNoteValue + 8) / 12);
 			String upperNoteOctave = String.valueOf((upperNoteValue + 8) / 12);
 
@@ -104,7 +105,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 		keyboardRange.setEntries(keyboardRangeEntries);
 
 		//  Must reset the summary because %s in preferences.xml does not update to the updated entry
-		keyboardRange.setSummary(keyboardRangeEntries[Integer.parseInt(keyboardRange.getValue())]);
+		int selectedRangeIndex = Math.abs(Integer.parseInt(currentKeyboardRangeValue)) -1; // Use abs to make -1, Random, to 0 index
+		keyboardRange.setSummary(keyboardRangeEntries[selectedRangeIndex]);
 		return true;
 	}
 
