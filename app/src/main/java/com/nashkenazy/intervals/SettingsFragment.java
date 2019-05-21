@@ -32,6 +32,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 		includedIntervalTypes.setOnPreferenceChangeListener(this::setKeyboardRange);
 		noteLetter.setOnPreferenceChangeListener(this::setKeyboardRange);
 		position.setOnPreferenceChangeListener(this::setKeyboardRange);
+		keyboardRange.setOnPreferenceChangeListener(this::setKeyboardRange);
 
 	}
 
