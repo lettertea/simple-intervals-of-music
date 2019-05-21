@@ -145,11 +145,10 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 					lowerNote = 12 * (octaveOffset - 1) + noteOffset;
 					upperNote = lowerNote + intervalDistance;
 			}
-
-			playInterval();
+			playInterval(true);
 		});
 
-		repeatIntervalBtn.setOnClickListener(v1 -> playInterval());
+		repeatIntervalBtn.setOnClickListener(v1 -> playInterval(false));
 	}
 
 	private void stopAllAudio() {
@@ -167,12 +166,11 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 		handler.postDelayed(() -> playNote(noteNumber), delay);
 	}
 
-	private void playInterval() {
+	private void playInterval(boolean firstTimeNewRound) {
 		stopAllAudio();
 
 		// Check only the first three letters to reduce size
 		// Based on interval type setting
-
 		switch (intervalType.substring(0,3)) {
 			case "Low":
 				playAscendingInterval();
@@ -187,17 +185,15 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 				playAllIntervalTypes();
 				break;
 			case "Ran":
-				List<IntervalType> intervalTypes = ImmutableList.of(this::playAscendingInterval, this::playDescendingInterval, this::playHarmonicInterval);
+				List<IntervalType> intervalTypes = ImmutableList.of(this::playAscendingInterval, this::playDescendingInterval, this::playHarmonicInterval, this::playAllIntervalTypes);
 
-				// Makes sure repeatIntervalBtn plays the same interval for the randomly generated preference
-				if (randomIntervalType == -1) { randomIntervalType = RAND.nextInt(intervalTypes.size()); }
-
+				// Makes sure repeatIntervalBtn plays the same interval in the round
+				if (firstTimeNewRound) { randomIntervalType = RAND.nextInt(intervalTypes.size()); }
 				intervalTypes.get(randomIntervalType).playInterval();
 				break;
 		}
 
 	}
-
 
 	private void playAllIntervalTypes() {
 		playNote(lowerNote);
