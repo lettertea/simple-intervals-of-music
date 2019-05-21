@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements OnIntervalClick {
 			// Set the answer according to the settings
 			// 0 indicates random
 			int noteOffset = noteSetting == -1 ? RAND.nextInt(12) + 1 : noteSetting;
-			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(6) + 1 : octaveSetting;
+			int octaveOffset = octaveSetting == -1 ? RAND.nextInt(5) + 2 : octaveSetting;
 
 			switch (positionSetting) {
 				case "Upper":
