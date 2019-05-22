@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   
   <br>
-  <sub>Not currently available in the playstore because the creator is too cheap to shell out $25. Apk releases can be found <a href="https://github.com/nashkenazy/simple-intervals-of-music/releases">here</a>.</sub>
+  <sub>Not currently available in Google Play Store. Apk releases can be found <a href="https://github.com/nashkenazy/simple-intervals-of-music/releases">here</a>.</sub>
  
   </p>
 
