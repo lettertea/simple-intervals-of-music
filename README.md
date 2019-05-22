@@ -18,7 +18,7 @@
 
 **An Android quiz app on the simple intervals of music.**
 
-The application is intended to help users develop relative pitch. It plays an intervals based on the selected preferences in the settings, and the user is allowed to choose an answer based on the choices. 
+This application is intended to help users develop relative pitch. It plays an interval based on the selected preferences in the settings. Once the user selects the correct answer and presses next, a new interval will be played.
 
 Main                       |  Preferences/Settings
 :-------------------------:|:-------------------------:
