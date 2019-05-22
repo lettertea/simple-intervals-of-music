@@ -18,4 +18,8 @@
 
 **An Android quiz app on the simple intervals of music.**
 
-![preview](https://user-images.githubusercontent.com/34195263/58142229-1f152d00-7bfb-11e9-8999-b967f911beef.png)
+The application is intended to help users develop relative pitch. It plays an intervals based on the selected preferences in the settings, and the user is allowed to choose an answer based on the choices. 
+
+Main                       |  Preferences/Settings
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/34195263/58143444-b2506180-7bff-11e9-9e82-6a7016a320c7.png)  |  ![](https://user-images.githubusercontent.com/34195263/58143602-39053e80-7c00-11e9-9b10-8c36e1fd1e08.png)
